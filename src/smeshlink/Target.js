@@ -1,4 +1,5 @@
-function Target(){
+function Target(img){
+	this.img = img;
 	this.arr = new Array();
 	this.calculate = new Calculate();
 	
@@ -22,7 +23,7 @@ Target.prototype.calZhixin = function(){
 	return [this.ox,this.oy];
 }
 Target.prototype.drawTarget = function(){
-	this.bitmap = new createjs.Bitmap("img/target.png");
+	this.bitmap = new createjs.Bitmap(this.img);
 	this.bitmap.x = this.ox;
 	this.bitmap.y = this.oy;
 	stage.addChild(this.bitmap);

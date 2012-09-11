@@ -1,6 +1,8 @@
 var loader;
 var nodePos;
-
+var targetImg;
+var backgroundImg;
+var nodeImg;
 
 function handBitmapOnPress(evt){
 	var target = evt.target;
@@ -19,11 +21,14 @@ function init() {
 	stage = new createjs.Stage(canvas);
 	createjs.Touch.enable(stage);
 	getNodePos();
+	targetImg = "img/t.png";
+	nodeImg   = "img/n.png";
+	backgroundImg = "img/bg.png";
 
 	var manifest = [
-	    {src:"img/bg.png"},
-	    {src:"img/node.png"},
-	    {src:"img/target.png"}
+	    {src:backgroundImg},
+	    {src:nodeImg},
+	    {src:targetImg}
 	    ];
 	loader = new PreloadJS();
     loader.onFileLoad = handleFileLoad;
@@ -34,10 +39,10 @@ function init() {
 }
 function getNodePos(){
 	nodePos = [
-	  {id:1,x:25,y:25},
+	  {id:1,x:125,y:125},
 	  {id:2,x:200,y:100},
 	  {id:3,x:400,y:100},
-	  {id:4,x:100,y:300},
+	  {id:4,x:700,y:300},
 	  {id:5,x:200,y:300},
 	  {id:6,x:400,y:300}
 	  ];
@@ -48,15 +53,15 @@ function handleFileLoad(){
 function handleComplete(){
 	console.log("complete");
 	var node = [];
-	var background = new BackGround("img/bg.png");
+	var background = new BackGround(backgroundImg);
 	
 	for(var i = 0; i < nodePos.length; i++)
 	{
-		node[i] = new Node(nodePos[i].id,nodePos[i].x,nodePos[i].y);
+		node[i] = new Node(nodePos[i].id,nodePos[i].x,nodePos[i].y,nodeImg);
 		background.addNode(node[i]);
 	}
 	stage.update();
-	var target = new Target();
+	var target = new Target(targetImg);
 	target.addRssi(node[0], 200);
 	target.addRssi(node[1], 100);
 	target.addRssi(node[3], 300);
