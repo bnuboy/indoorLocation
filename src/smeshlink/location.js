@@ -4,18 +4,6 @@ var targetImg;
 var backgroundImg;
 var nodeImg;
 
-function handBitmapOnPress(evt){
-	var target = evt.target;
-	console.log(target);
-	evt.onMouseMove = function(e){
-		console.log(e);
-		target.x = e.stageX;
-		target.y = e.stageY;
-		//console.log(e.stageX);
-		//console.log(bitmap.x);
-		stage.update();
-	}
-}
 function init() {
 	canvas = document.getElementById("canvas");
 	stage = new createjs.Stage(canvas);

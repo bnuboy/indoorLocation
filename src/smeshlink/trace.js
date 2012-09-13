@@ -4,26 +4,12 @@ var targetImg;
 var backgroundImg;
 var nodeImg;
 var history;
-function handBitmapOnPress(evt){
-	var target = evt.target;
-	console.log(target);
-	evt.onMouseMove = function(e){
-		console.log(e);
-		target.x = e.stageX;
-		target.y = e.stageY;
-		//console.log(e.stageX);
-		//console.log(bitmap.x);
-		stage.update();
-	}
-}
+
 function init() {
 	canvas = document.getElementById("canvas");
 	stage = new createjs.Stage(canvas);
 	history = new History();
 	history.data = history.getData();
-	//console.log(history.data);
-	//history.startTrace(history.data);
-	//return;
 	createjs.Touch.enable(stage);
 	getNodePos();
 	targetImg = "img/t.png";
@@ -39,8 +25,6 @@ function init() {
     loader.onFileLoad = handleFileLoad;
     loader.onComplete = handleComplete;
     loader.loadManifest(manifest);
-	
-	
 }
 function getNodePos(){
 	nodePos = [
@@ -59,8 +43,6 @@ function handleComplete(){
 	console.log("complete");
 	var node = [];
 	var background = new BackGround(backgroundImg);
-	
-	
 	for(var i = 0; i < nodePos.length; i++)
 	{
 		node[i] = new Node(nodePos[i].id,nodePos[i].x,nodePos[i].y,nodeImg);
@@ -68,10 +50,6 @@ function handleComplete(){
 		history.addNode(node[i]);
 		console.log(history.data);
 	}
-	//history.calPoint();
-	//history.calPoint();
-	//setInterval(function(){history.calPoint();},2000);
 	history.startTrace();
 	stage.update();
-	
 }

@@ -2,7 +2,8 @@ function Target(img){
 	this.img = img;
 	this.arr = new Array();
 	this.calculate = new Calculate();
-	
+	this.bitmap = new createjs.Bitmap(this.img);
+	this.bitmap.onClick = handTargetOnClick;
 }
 Target.prototype.addRssi = function(node,rssi){
 	this.arr.push([node,rssi]);
@@ -23,7 +24,7 @@ Target.prototype.calZhixin = function(){
 	return [this.ox,this.oy];
 }
 Target.prototype.drawTarget = function(){
-	this.bitmap = new createjs.Bitmap(this.img);
+	
 	this.bitmap.x = this.ox;
 	this.bitmap.y = this.oy;
 	stage.addChild(this.bitmap);
@@ -41,4 +42,8 @@ Target.prototype.calPos = function(m,n,o){
 		this.calculate.addCircle(circle);
 	}
 	return this.calculate.addPoints(m,n,o);
+}
+function handTargetOnClick(evt){
+	var target = evt.target;
+	document.getElementById("targetInfo").innerHTML = "未知节点坐标：（" + target.x + "," + target.y + ")";
 }

@@ -3,11 +3,11 @@ function History(){
 	this._node = [];
 	this._target = [];
 	this.data = new Array();
-	
+	//this.time;
 }
 History.prototype.startTrace = function(){
 	var his = this;
-	setInterval(function(){his.calPoint();},2);
+	this.time = setInterval(function(){his.calPoint();},2);
 }
 History.prototype.getData = function(){
 	var data = [
@@ -78,5 +78,8 @@ History.prototype.calPoint = function(){
 	target.drawTarget();
 	this._curId++;
 	stage.update();
+	if(this._curId == 12){
+		clearInterval(this.time);
+	}
 }
 
