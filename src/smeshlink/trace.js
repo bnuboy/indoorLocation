@@ -3,7 +3,7 @@ var nodePos;
 var targetImg;
 var backgroundImg;
 var nodeImg;
-
+var history;
 function handBitmapOnPress(evt){
 	var target = evt.target;
 	console.log(target);
@@ -19,6 +19,11 @@ function handBitmapOnPress(evt){
 function init() {
 	canvas = document.getElementById("canvas");
 	stage = new createjs.Stage(canvas);
+	history = new History();
+	history.data = history.getData();
+	//console.log(history.data);
+	//history.startTrace(history.data);
+	//return;
 	createjs.Touch.enable(stage);
 	getNodePos();
 	targetImg = "img/t.png";
@@ -55,17 +60,18 @@ function handleComplete(){
 	var node = [];
 	var background = new BackGround(backgroundImg);
 	
+	
 	for(var i = 0; i < nodePos.length; i++)
 	{
 		node[i] = new Node(nodePos[i].id,nodePos[i].x,nodePos[i].y,nodeImg);
 		background.addNode(node[i]);
+		history.addNode(node[i]);
+		console.log(history.data);
 	}
+	//history.calPoint();
+	//history.calPoint();
+	//setInterval(function(){history.calPoint();},2000);
+	history.startTrace();
 	stage.update();
-	var target = new Target(targetImg);
-	target.addRssi(node[0], 200);
-	target.addRssi(node[1], 100);
-	target.addRssi(node[5], 300);
-	var data = target.calZhixin();
-	console.log(data);
-	target.drawTarget();
+	
 }
