@@ -5,11 +5,11 @@ function Node(nodeId,x,y,nodeImg){
 	this.bitmap = new createjs.Bitmap(nodeImg);
 	this.bitmap.x = this.x;
 	this.bitmap.y = this.y;
+	this.bitmap.nodeId = nodeId;
 	this.bitmap.regX = 25;
 	this.bitmap.regY = 25;
 	this.bitmap.onPress = handBitmapOnPress;
-	//this.bitmap.onClick = handBitmapOnClick;
-	stage.addChild(this.bitmap);
+	stage.addChildAt(this.bitmap,1);
 }
 Node.prototype.setRssi = function(rssi){
 	this.rssi = rssi;
@@ -38,11 +38,11 @@ function handBitmapOnPress(evt){
 		target.x = oldNodeX + e.stageX - oldMouseX;
 		target.y = oldNodeY + e.stageY - oldMouseY;
 		stage.update();
-		document.getElementById("nodeInfo").innerHTML = "节点坐标：（" + target.x + "," + target.y + ")";
+		document.getElementById("nodeInfo").innerHTML = "节点坐标：（" + target.x + "," + target.y + ") 节点id：" + target.nodeId;
 	}
 	evt.onMouseUp = function(e){
 		if(!moveFlag){
-			document.getElementById("nodeInfo").innerHTML = "节点坐标：（" + target.x + "," + target.y + ")";
+			document.getElementById("nodeInfo").innerHTML = "节点坐标：（" + target.x + "," + target.y + ") 节点id：" + target.nodeId;
 		}else{
 			moveFlag = false;
 		}

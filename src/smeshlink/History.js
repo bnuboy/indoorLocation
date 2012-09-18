@@ -3,11 +3,12 @@ function History(){
 	this._node = [];
 	this._target = [];
 	this.data = new Array();
+	this.line = new Line("#000000");
 	//this.time;
 }
 History.prototype.startTrace = function(){
 	var his = this;
-	this.time = setInterval(function(){his.calPoint();},2);
+	this.time = setInterval(function(){his.calPoint();},1000);
 }
 History.prototype.getData = function(){
 	var data = [
@@ -45,10 +46,10 @@ History.prototype.getData = function(){
 	    {seqid:10,moveid:1,refid:2,rssi:100},
 	    {seqid:10,moveid:1,refid:4,rssi:400},
 	    {seqid:11,moveid:1,refid:2,rssi:200},
-	    {seqid:11,moveid:1,refid:3,rssi:100},
+	    {seqid:11,moveid:1,refid:5,rssi:100},
 	    {seqid:11,moveid:1,refid:4,rssi:100},
 	    {seqid:12,moveid:1,refid:2,rssi:100},
-	    {seqid:12,moveid:1,refid:3,rssi:100},
+	    {seqid:12,moveid:1,refid:6,rssi:100},
 	    {seqid:12,moveid:1,refid:4,rssi:300}
 	    ];
 	return data;
@@ -74,11 +75,22 @@ History.prototype.calPoint = function(){
 			
 	}
 	var data = target.calZhixin();
+	var startPoint;
+	if(this._curId == 1){
+		startPoint = new Point(target.ox,target.oy);
+		this.line.setStartPoint(startPoint);
+	}else{
+		endPoint   = new Point(target.ox,target.oy);
+		this.line.setEndPoint(endPoint);
+		this.line.drawLine();
+		this.line.setStartPoint(endPoint);
+	}
+	
 	console.log(data);
 	target.drawTarget();
 	this._curId++;
 	stage.update();
-	if(this._curId == 12){
+	if(this._curId == 13){
 		clearInterval(this.time);
 	}
 }

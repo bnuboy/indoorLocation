@@ -3,6 +3,8 @@ function Target(img){
 	this.arr = new Array();
 	this.calculate = new Calculate();
 	this.bitmap = new createjs.Bitmap(this.img);
+	this.bitmap.regX = 15;
+	this.bitmap.regY = 15;
 	this.bitmap.onClick = handTargetOnClick;
 }
 Target.prototype.addRssi = function(node,rssi){
@@ -27,7 +29,7 @@ Target.prototype.drawTarget = function(){
 	
 	this.bitmap.x = this.ox;
 	this.bitmap.y = this.oy;
-	stage.addChild(this.bitmap);
+	stage.addChildAt(this.bitmap,3);
 	stage.update();
 }
 Target.prototype.calPos = function(m,n,o){
